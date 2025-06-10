@@ -1,0 +1,25 @@
+/.idea/
+/.vs/
+/.vscode/
+logs/
+
+#Playwright
+/test-results/
+/playwright-report/
+/playwright/.cache/
+/.auth/
+
+# Dependency directories
+node_modules
+package-lock.json
+
+# For mac users
+*.DS_Store
+
+# Allure
+/allure-report
+/allure-results
+
+# ignore env configs
+/.env*
+/blob-report/
