@@ -3,7 +3,7 @@ import { step } from "../util/testDecorators";
 import { AxeResults, NodeResult, Result } from "axe-core";
 import { AccessibilityReportContext, TestInfo } from "../fixtures/testFixtures";
 import { JiraApiSteps } from "./api/jiraApiSteps";
-import { ConfigurationDataUtil } from "../util/configurationDataUtil";
+import { ConfigurationData } from "../config/configurationData";
 
 interface SimplifiedNodeResult {
   selector: string;
@@ -40,9 +40,17 @@ export class ReportingSteps {
     accessibilityReportContext: AccessibilityReportContext,
   ) {
     if (!accessibilityReportContext.results) return;
-    await testInfo.attach("Accessibility scan results", {
+    await testInfo.attach("Accessibility complete scan results", {
       body: JSON.stringify(accessibilityReportContext.results, null, 2),
       contentType: "application/json",
+    });
+    if (!accessibilityReportContext.results.violations) return;
+    let accessibilityScanResultSummary = this.formatViolationsForAiPromt(
+      accessibilityReportContext.results.violations,
+    );
+    await testInfo.attach("Accessibility scan results: violations only", {
+      body: accessibilityScanResultSummary,
+      contentType: "text/plain",
     });
   }
 
@@ -84,7 +92,7 @@ export class ReportingSteps {
   @step("Attach the link to the created jira ticket")
   async attachLinkToJiraTicket(testInfo: TestInfo, ticketId: string) {
     await testInfo.attach("Link to the created Jira ticket", {
-      body: `${ConfigurationDataUtil.getJiraProjectBaseUrl()}/browse/${ticketId}`,
+      body: `${ConfigurationData.getJiraProjectBaseUrl()}/browse/${ticketId}`,
       contentType: "text/uri-list",
     });
   }

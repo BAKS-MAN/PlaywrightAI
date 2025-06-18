@@ -1,7 +1,8 @@
 import { test as setup } from "../../fixtures/testFixtures";
 
-setup("Accept cookies for session", async ({ homePageSteps }) => {
+setup("Prepare user session state", async ({ homePageSteps }) => {
   await homePageSteps.openHomePage();
   await homePageSteps.acceptCookies();
+  // await homePageSteps.loginAsCustomerUser();
   await homePageSteps.saveUserSessionState();
 });
