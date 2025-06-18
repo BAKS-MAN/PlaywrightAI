@@ -14,7 +14,7 @@ and [WebKit](https://webkit.org/) with a single API.
 - Reporting via Allure report tool;
 - Configured Playwright APIRequestContext for LLM promting via Google Gemini API;
 - Configured Playwright APIRequestContext for Jira issue creation via Jira API;
-  <br>Ticket creation process is performed for failed test annotated with tag @jira
+  <br>Ticket creation process is performed for a failed test annotated with the tag @jira
 
 ## Installation
 
@@ -30,23 +30,39 @@ The following software are required:
 1. Clone the repo
 
 2. Navigate to folder and install npm packages using:
-
 ```sh
 npm install
 ```
 
 3. For first time installation run below command to download required browsers
-
 ```sh
 npx playwright install
 ```
 
+## Environments Configuration
+
+Environment-specific data, like BASE_URL, HTTP Auth credentials e.t.c, are expected to be stored in:
+
+```text
+resources/prod.env
+```
+
+Environment data, like API Tokens, are expected to be stored in:
+
+```text
+root .env
+```
+
 ## Test execution
 
-Tests are written with Page object model usage.
-
 For test execution the following command should be used:
-
 ```sh
 npx playwright test
+```
+
+To run your tests against different environments:
+
+```sh
+npm run test:uat
+npm run test:prod
 ```

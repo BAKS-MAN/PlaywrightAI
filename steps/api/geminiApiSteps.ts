@@ -1,5 +1,5 @@
 import { BaseApiSteps } from "./baseApiSteps";
-import { ConfigurationDataUtil } from "../../util/configurationDataUtil";
+import { ConfigurationData } from "../../config/configurationData";
 
 interface GeminiContentPart {
   text: string;
@@ -25,7 +25,7 @@ interface GeminiApiResponse {
 
 export class GeminiApiSteps extends BaseApiSteps {
   private modelName = "gemini-2.5-flash-preview-05-20";
-  private readonly geminiApiKey = ConfigurationDataUtil.getGeminiApiKey();
+  private readonly geminiApiKey = ConfigurationData.getGeminiApiKey();
 
   public async getGeminiAiRecommendations(promptText: string): Promise<string> {
     const url = `models/${this.modelName}:generateContent`;

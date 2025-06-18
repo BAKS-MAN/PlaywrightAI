@@ -2,26 +2,17 @@ import { expect, Page } from "../../fixtures/testFixtures";
 import { step } from "../../util/testDecorators";
 import { AxeResults } from "axe-core";
 import AxeBuilder from "@axe-core/playwright";
-import { ProductsPage } from "../../pages/productsPage";
 
 export class AccessibilitySteps {
-  private readonly productsPage: ProductsPage;
+  private readonly page: Page;
 
-  constructor(productsPage: ProductsPage) {
-    this.productsPage = productsPage;
+  constructor(page: Page) {
+    this.page = page;
   }
 
-  @step("Get accessibility scan result for product page")
-  async getAccessibilityScanResultForProductsPage() {
-    return await this.getAccessibilityScanResultForPage(this.productsPage.page);
-  }
-
-  @step("Get accessibility scan result for product card")
-  async getAccessibilityScanResultForProductCardComponent() {
-    return await this.getAccessibilityScanResultForElement(
-      this.productsPage.page,
-      this.productsPage.productCardSelector,
-    );
+  @step("Get accessibility scan result for the current page")
+  async getAccessibilityScanResultForCurrentPage() {
+    return await this.getConfiguredAxeBuilder().analyze();
   }
 
   @step("Check there are no automatically detectable accessibility issues")
@@ -34,30 +25,28 @@ export class AccessibilitySteps {
       .toBeFalsy();
   }
 
-  private getConfiguredAxeBuilder(page: Page): AxeBuilder {
-    return new AxeBuilder({ page })
-      .withTags([
-        "wcag2a",
-        "wcag2aa",
-        "wcag2aaa",
-        "wcag21a",
-        "wcag21aa",
-        "wcag22aa",
-        "best-practice",
-      ])
-      .disableRules(["avoid-inline-spacing"]);
-  }
-
-  @step("Get accessibility scan result for the current page")
-  private async getAccessibilityScanResultForPage(page: Page) {
-    return await this.getConfiguredAxeBuilder(page).analyze();
+  private getConfiguredAxeBuilder(): AxeBuilder {
+    return new AxeBuilder({ page: this.page }).withTags([
+      "wcag2a",
+      "wcag2aa",
+      "wcag2aaa",
+      "wcag21a",
+      "wcag21aa",
+      "wcag22aa",
+      "best-practice",
+    ]);
   }
 
   @step("Get accessibility scan result for element")
-  private async getAccessibilityScanResultForElement(
-    page: Page,
-    selector: string,
-  ) {
-    return await this.getConfiguredAxeBuilder(page).include(selector).analyze();
+  private async getAccessibilityScanResultForElement(selector: string) {
+    return await this.getConfiguredAxeBuilder().include(selector).analyze();
   }
+
+  // @step("Get accessibility scan result for product card")
+  // async getAccessibilityScanResultForProductCardComponent() {
+  //   return await this.getAccessibilityScanResultForElement(
+  //     this.productsPage.page,
+  //     this.productsPage.tariffCarousel,
+  //   );
+  // }
 }
