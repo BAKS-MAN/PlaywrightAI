@@ -66,3 +66,20 @@ To run your tests against different environments:
 npm run test:uat
 npm run test:prod
 ```
+
+### Test execution by tags
+
+To run specific group of tests using their tags, the following syntax should be used
+
+```sh
+npx playwright test --grep @e2e
+```
+
+## Allure report
+
+To open test execution report following commands should be used:
+
+```sh
+npx allure generate ./allure-results
+npx allure open allure-report/awesome
+```

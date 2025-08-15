@@ -6,8 +6,9 @@ test.use({ storageState: TestData.USER_SESSION_STATE_PATH });
 
 test.describe("E2E tests for user checkout flow", { tag: "@e2e" }, () => {
   test.beforeAll(async () => {
-    await allure.parentSuite("E2E tests");
-    await allure.suite("Checkout tests");
+    await allure.epic("Order creation");
+    await allure.feature("Checkout from the shop page");
+    await allure.story("Checkout tests");
   });
 
   test("User is able to checkout with 50 Gb smartphone tariff without device selection", async ({

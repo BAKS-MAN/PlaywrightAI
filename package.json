@@ -3,27 +3,25 @@
   "version": "1.0.0",
   "description": "UI test automation framework",
   "main": "index.js",
-  "type": "module",
   "scripts": {
     "test": "npx playwright test",
     "test:uat": "cross-env ENVIRONMENT=uat npx playwright test",
-    "test:prod": "cross-env ENVIRONMENT=prod npx playwright test",
-    "show-report": "allure generate ./allure-results --clean & allure open ./allure-report -h localhost -p 8081"
+    "test:prod": "cross-env ENVIRONMENT=prod npx playwright test"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@playwright/test": "^1.53.1",
-    "@types/node": "^22.15.17",
-    "allure-commandline": "^2.34.1",
-    "allure-playwright": "^3.2.2",
-    "cross-env": "^7.0.3"
+    "@playwright/test": "^1.58.2",
+    "@types/node": "^25.3.0",
+    "allure": "^3.2.0",
+    "allure-playwright": "^3.4.5",
+    "cross-env": "^10.1.0"
   },
   "dependencies": {
-    "@axe-core/playwright": "^4.10.1",
-    "@google/genai": "^1.0.1",
-    "dotenv": "^16.5.0",
-    "prettier": "^3.5.3"
+    "@axe-core/playwright": "^4.11.1",
+    "@google/genai": "^1.42.0",
+    "dotenv": "^17.3.1",
+    "prettier": "^3.8.1"
   }
 }
