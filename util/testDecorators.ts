@@ -1,19 +1,17 @@
-import * as allure from "allure-js-commons";
+import { test } from "@playwright/test";
 
 export function step(stepName?: string) {
-  return function decorator<This, Args extends any[], Return>(
-    target: (this: This, ...args: Args) => Promise<Return>,
-    context: ClassMethodDecoratorContext<
-      This,
-      (this: This, ...args: Args) => Promise<Return>
-    >,
+  return function decorator(
+    target: Function,
+    context: ClassMethodDecoratorContext,
   ) {
-    const methodName = context.name as string;
-    return async function (this: This, ...args: Args): Promise<Return> {
+    return function replacementMethod(...args: any) {
       /* Use `stepName` when it's defined or fall back to class name / method name */
-      const dynamicStepName =
-        stepName || `${(this as any).constructor.name}.${methodName}`;
-      return allure.step(dynamicStepName, () => target.apply(this, args));
+      const name =
+        stepName || `${this.constructor.name + "." + (context.name as string)}`;
+      return test.step(name, async () => {
+        return await target.call(this, ...args);
+      });
     };
   };
 }

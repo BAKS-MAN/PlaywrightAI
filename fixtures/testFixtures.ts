@@ -45,20 +45,6 @@ export const test = playwrightTest.test.extend<{
   smartwatchDevicesPageSteps: SmartwatchDevicesPageSteps;
   cartPageSteps: CartPageSteps;
 }>({
-  /*
-  Set the authorization header for all subsequent network requests on page when test environment is used
-   */
-  page: async ({ page }, use) => {
-    if (ConfigurationData.isUatEnvironment()) {
-      const token = Buffer.from(
-        `${ConfigurationData.getEnvHttpAuthUsername()}:${ConfigurationData.getEnvHttpAuthPassword()}`,
-      ).toString("base64");
-      await page.setExtraHTTPHeaders({
-        Authorization: `Basic ${token}`,
-      });
-    }
-    await use(page);
-  },
   geminiApiContext: async ({}, use) => {
     const context = await playwrightTest.request.newContext({
       baseURL: "https://generativelanguage.googleapis.com/v1beta/",
@@ -129,16 +115,6 @@ export const test = playwrightTest.test.extend<{
   },
 });
 
-// Raise a bug in the Jira if the test failed and has the tag '@jira'
-test.afterEach(async ({ reportingSteps }, testInfo) => {
-  const isFailed =
-    testInfo.status === "failed" || testInfo.status === "timedOut";
-  const shouldCreateTicket = testInfo.tags.includes("@jira");
-
-  if (isFailed && shouldCreateTicket) {
-    await reportingSteps.createJiraTicketForFailedTest(testInfo);
-  }
-});
 export const expect = playwrightTest.expect;
 export type Page = playwrightTest.Page;
 export type APIRequestContext = playwrightTest.APIRequestContext;
