@@ -1,0 +1,8 @@
+export const TIMEOUTS = {
+  SECONDS_5: 5 * 1000,
+  SECONDS_10: 10 * 1000,
+  SECONDS_20: 20 * 1000,
+  SECONDS_30: 30 * 1000,
+  SECONDS_60: 60 * 1000,
+  SECONDS_90: 90 * 1000,
+} as const;

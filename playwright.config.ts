@@ -1,5 +1,6 @@
 import { defineConfig, devices } from "@playwright/test";
-import { loadEnvironmentConfig } from "./config/configLoader";
+import { loadEnvironmentConfig } from "./config/config.loader";
+import { EnvConfig } from "./config/env.config";
 
 /**
  * Read environment variables from file.
@@ -46,7 +47,7 @@ export default defineConfig({
         ],
         environmentInfo: {
           framework: "playwright",
-          environment: process.env.ENVIRONMENT || "prod",
+          environment: EnvConfig.currentEnv,
         },
       },
     ],
@@ -67,7 +68,10 @@ export default defineConfig({
   /* Configure projects for major browsers */
   projects: [
     // Setup browser session
-    { name: "Tests setup", testMatch: /setup.*\.ts/ },
+    {
+      name: "Tests setup",
+      testMatch: new RegExp(`/setup.*\\.${EnvConfig.currentEnv}\\.ts`),
+    },
 
     {
       name: "Google Chrome",
