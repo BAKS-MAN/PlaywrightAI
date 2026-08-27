@@ -1,27 +1,28 @@
 {
   "name": "playwright_ai",
-  "version": "1.0.0",
-  "description": "UI test automation framework",
+  "version": "2.0.0",
+  "description": "Test automation framework",
   "main": "index.js",
   "scripts": {
     "test": "npx playwright test",
-    "test:uat": "cross-env ENVIRONMENT=uat npx playwright test",
-    "test:prod": "cross-env ENVIRONMENT=prod npx playwright test"
+    "test:uat": "cross-env ENV=uat npx playwright test",
+    "test:prod": "cross-env ENV=prod npx playwright test"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@playwright/test": "^1.58.2",
-    "@types/node": "^25.3.0",
-    "allure": "^3.2.0",
-    "allure-playwright": "^3.4.5",
+    "@faker-js/faker": "^10.6.0",
+    "@playwright/test": "^1.62.1",
+    "@types/node": "^26.1.2",
+    "allure": "^3.14.3",
+    "allure-playwright": "^3.10.2",
     "cross-env": "^10.1.0"
   },
   "dependencies": {
-    "@axe-core/playwright": "^4.11.1",
-    "@google/genai": "^1.42.0",
+    "@axe-core/playwright": "^4.13.0",
+    "@google/genai": "^2.19.0",
     "dotenv": "^17.3.1",
-    "prettier": "^3.8.1"
+    "prettier": "^3.9.6"
   }
 }

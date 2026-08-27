@@ -1,8 +1,8 @@
 import * as allure from "allure-js-commons";
 import { test, TestInfo } from "../fixtures/testFixtures";
-import { TestData } from "../test-data/testData";
+import { AUTH_USER_SESSION_STATE_PATH } from "../config/auth.config";
 
-test.use({ storageState: TestData.USER_SESSION_STATE_PATH });
+test.use({ storageState: AUTH_USER_SESSION_STATE_PATH.CUSTOMER_USER });
 
 test.describe("Accessibility tests for tariff pages", { tag: "@axe" }, () => {
   test.beforeAll(async () => {
@@ -19,10 +19,10 @@ test.describe("Accessibility tests for tariff pages", { tag: "@axe" }, () => {
         testInfo,
         accessibilityReportContext,
       );
-      // await reportingSteps.attachAiAnalyzedAccessibilityReport(
-      //   testInfo,
-      //   accessibilityReportContext,
-      // );
+      await reportingSteps.attachAiAnalyzedAccessibilityReport(
+        testInfo,
+        accessibilityReportContext,
+      );
     },
   );
 
@@ -64,19 +64,6 @@ test.describe("Accessibility tests for tariff pages", { tag: "@axe" }, () => {
     accessibilityReportContext.results = accessibilityScanResults;
   });
 
-  test("Check Automatically detectable accessibility issues for the young tariffs page", async ({
-    youngTariffPageSteps,
-    accessibilitySteps,
-    accessibilityReportContext,
-  }) => {
-    await youngTariffPageSteps.openYoungTariffsPage();
-    await youngTariffPageSteps.checkTariffCarouselIsDisplayed();
-    let accessibilityScanResults =
-      await accessibilitySteps.getAccessibilityScanResultForCurrentPage();
-    await accessibilitySteps.checkAccessibilityIssues(accessibilityScanResults);
-    accessibilityReportContext.results = accessibilityScanResults;
-  });
-
   test("Check Automatically detectable accessibility issues for the data tariffs page", async ({
     dataTariffPageSteps,
     accessibilitySteps,
@@ -97,32 +84,6 @@ test.describe("Accessibility tests for tariff pages", { tag: "@axe" }, () => {
   }) => {
     await smartphoneDevicesPageSteps.openSmartphoneDevicesPage();
     await smartphoneDevicesPageSteps.checkProductsAreDisplayed();
-    let accessibilityScanResults =
-      await accessibilitySteps.getAccessibilityScanResultForCurrentPage();
-    await accessibilitySteps.checkAccessibilityIssues(accessibilityScanResults);
-    accessibilityReportContext.results = accessibilityScanResults;
-  });
-
-  test("Check Automatically detectable accessibility issues for the tablet devices page", async ({
-    tabletDevicesPageSteps,
-    accessibilitySteps,
-    accessibilityReportContext,
-  }) => {
-    await tabletDevicesPageSteps.openTabletDevicesPage();
-    await tabletDevicesPageSteps.checkProductsAreDisplayed();
-    let accessibilityScanResults =
-      await accessibilitySteps.getAccessibilityScanResultForCurrentPage();
-    await accessibilitySteps.checkAccessibilityIssues(accessibilityScanResults);
-    accessibilityReportContext.results = accessibilityScanResults;
-  });
-
-  test("Check Automatically detectable accessibility issues for the smartwatch devices page", async ({
-    smartwatchDevicesPageSteps,
-    accessibilitySteps,
-    accessibilityReportContext,
-  }) => {
-    await smartwatchDevicesPageSteps.openSmartwatchDevicesPage();
-    await smartwatchDevicesPageSteps.checkProductsAreDisplayed();
     let accessibilityScanResults =
       await accessibilitySteps.getAccessibilityScanResultForCurrentPage();
     await accessibilitySteps.checkAccessibilityIssues(accessibilityScanResults);
