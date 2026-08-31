@@ -177,8 +177,7 @@ fail-fast behaviour.
 
 Available accessors: `currentEnv`, `isUatEnvironment`, `isProdEnvironment`, `isJiraReportingEnabled`
 (reads `ENABLE_JIRA_TICKETING === "true"`), `getProxyUrl`, `getJiraUsername`, `getJiraApiKey`,
-`getJiraProjectBaseUrl`, `getGeminiApiKey`, `getEnvHttpAuthUsername`, `getEnvHttpAuthPassword`,
-`getPortalCustomerUsername`, `getPortalCustomerPassword`.
+`getJiraProjectBaseUrl`, `getGeminiApiKey`, `getPortalCustomerUsername`, `getPortalCustomerPassword`.
 
 **Never commit secrets.** `/.env*` and `/.auth/` are git-ignored; keep it that way.
 

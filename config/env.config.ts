@@ -65,20 +65,6 @@ export class EnvConfig {
   }
 
   /**
-   * Retrieves the Environment username value from environment variables.
-   */
-  public static getEnvHttpAuthUsername(): string {
-    return this.getEnvVariable("ENV_USERNAME");
-  }
-
-  /**
-   * Retrieves the Environment password value from environment variables.
-   */
-  public static getEnvHttpAuthPassword(): string {
-    return this.getEnvVariable("ENV_PASSWORD");
-  }
-
-  /**
    * Retrieves the portal's customer username value from environment variables.
    */
   public static getPortalCustomerUsername(): string {
